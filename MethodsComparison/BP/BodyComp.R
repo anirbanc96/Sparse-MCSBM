@@ -2,7 +2,7 @@ source("Functions.R")
 
 set.seed(2024)
 
-threshold.vec <- c(0, 0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 4)
+threshold.vec <- seq(0, 4.5, 0.5)
 
 n <- 400
 
@@ -18,10 +18,12 @@ m <- 2
 
 avg.deg.vec <- sample(2:5, m, replace = T)
 
-alpha.vec <- c(8, 4, 2, 1, 1/2)
+alpha.vec <- c(0.5, 1, 2)
 
 power <- matrix(0, length(alpha.vec), length(threshold.vec))
 overlap <- matrix(0, length(alpha.vec), length(threshold.vec))
+
+mult <- 3
 
 ################################################################################
 
@@ -57,9 +59,12 @@ for (k in 1:length(alpha.vec)){
     
     alpha <- alpha.vec[k]
     
-    lambda.vec <- rep(sqrt(threshold.vec[i]/(m + alpha)), m)
+    lambda1 <- sqrt(mult * alpha * threshold.vec[i]/((1+alpha) * (m + mult-1)))
     
-    mu <- sqrt(alpha) * sqrt(gamma) * sqrt(threshold.vec[i]/(m + alpha))
+    lambda.vec <- c(lambda1,
+                    rep(sqrt(alpha * threshold.vec[i]/((1+alpha) * (m + mult - 1)))))
+    
+    mu <- sqrt(gamma * threshold.vec[i]/(1+alpha))
     
     print(sum(lambda.vec^2) + ((mu^2)/gamma))
     
@@ -76,18 +81,20 @@ for (k in 1:length(alpha.vec)){
       output
     }
     
-    
     power[k,i] <- mean(outputMatrix[,1])
     overlap[k,i] <- mean(outputMatrix[,2])
     
-    print (c(sum(lambda.vec^2)/((mu^2)/gamma),
-           threshold.vec[i], power[k,i], overlap[k,i]))
+    print (c(sum(lambda.vec^2) + ((mu^2)/gamma),
+             sum(lambda.vec^2)/((mu^2)/gamma), (mu^2)/gamma,
+             overlap[k,i]))
     
   }
 }
 
 Sys.time() - start
 
-power.overlap.tibble <- rbind(threshold.vec, power, overlap)
+overlap.tibble <- rbind(threshold.vec, overlap)[-1,]
 
-write.csv(power.overlap.tibble, file = "Vals.csv")
+overlap.tibble <- cbind(alpha.vec, overlap.tibble)
+
+write.csv(overlap.tibble, file = "ValsCompRatio.csv")

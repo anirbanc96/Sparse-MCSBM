@@ -1,0 +1,27 @@
+Loading required package: iterators
+Loading required package: parallel
+
+Attaching package: ‘snow’
+
+The following objects are masked from ‘package:parallel’:
+
+    closeNode, clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, clusterSplit, makeCluster, parApply,
+    parCapply, parLapply, parRapply, parSapply, recvData, recvOneData,
+    sendData, splitIndices, stopCluster
+
+Loading required namespace: Rmpi
+	30 slaves are spawned successfully. 0 failed.
+[1] 0.5
+[1] 600.00000000   0.50000000   0.00000000   0.03333333
+[1] 1
+[1] 600.00000000   1.00000000   0.56000000   0.03813333
+[1] 1.5
+[1] 600.00000000   1.50000000   1.00000000   0.03893333
+Time difference of 45.12914 mins
+Error in library(tidyverse) : there is no package called ‘tidyverse’
+Execution halted
+
+real	45m14.167s
+user	6m11.397s
+sys	38m34.640s
