@@ -1,8 +1,8 @@
 library(readr)
 library(tidyverse)
-ValsAMP <- read.csv("~/Dropbox (Penn)/Finite degree Multi-Layer SBM/IMA Revision Codes/MethodsComparison/AMP/ValsCompAMP.csv")[,-1]
-ValsBP <- read.csv("~/Dropbox (Penn)/Finite degree Multi-Layer SBM/IMA Revision Codes/MethodsComparison/BP/ValsCompRatio.csv")[,-1]
-ValsDCMASE <- read.csv("~/Dropbox (Penn)/Finite degree Multi-Layer SBM/IMA Revision Codes/MethodsComparison/DCMASE/ValsCompDCMASE.csv")[-1,-1]
+ValsAMP <- read.csv("AMP/ValsCompAMP.csv")[,-1]
+ValsBP <- read.csv("BP/ValsCompRatio.csv")[,-1]
+ValsDCMASE <- read.csv("DCMASE/ValsCompDCMASE.csv")[-1,-1]
 
 names(ValsDCMASE) <- names(ValsAMP)
 
